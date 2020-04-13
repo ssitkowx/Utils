@@ -58,10 +58,8 @@ class Conan(ConanFile):
             
         tools.replace_in_file(projectPath + "\\CMakeLists.txt", "Template", self.name, False)
         
-    def package(self):    
-        print ("package !!!!!!!!!!!!!!!")    
+    def package(self):       
         projectPath = os.getcwd().replace('\Conan','')
-        print (projectPath)
         if not os.path.exists(projectPath + '\\CMakeLists.txt'):
             projectPath = self.buildPath.replace('Build','')
     
