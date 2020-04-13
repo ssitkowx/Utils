@@ -45,7 +45,7 @@ class Conan(ConanFile):
     def build(self):
         projectPath = os.getcwd().replace('\Conan','')
         if not os.path.exists(projectPath + '\\CMakeLists.txt'):
-            projectPath = os.getcwd() + '\\' + self.name
+            projectPath = os.getcwd() + '\\Project'
 
         self.buildPath = projectPath + '\\Build'
         
@@ -58,18 +58,20 @@ class Conan(ConanFile):
             
         tools.replace_in_file(projectPath + "\\CMakeLists.txt", "Template", self.name, False)
         
-    def package(self):     
+    def package(self):    
+        print ("package !!!!!!!!!!!!!!!")    
         projectPath = os.getcwd().replace('\Conan','')
+        print (projectPath)
         if not os.path.exists(projectPath + '\\CMakeLists.txt'):
             projectPath = self.buildPath.replace('Build','')
     
-        self.copy('*.h'     , dst='include', src= projectPath + '\\' + self.name, keep_path=False)
-        self.copy('*.hxx'   , dst='include', src= projectPath + '\\' + self.name, keep_path=False)
-        self.copy('*.lib'   , dst='lib'    , src= projectPath + '\Build\lib'    , keep_path=False)
-        self.copy('*.dll'   , dst='bin'    , src= projectPath + '\Build\bin'    , keep_path=False)
-        self.copy('*.dylib*', dst='lib'    , src= projectPath + '\Build\lib'    , keep_path=False)
-        self.copy('*.so'    , dst='lib'    , src= projectPath + '\Build\lib'    , keep_path=False)
-        self.copy('*.a'     , dst='lib'    , src= projectPath + '\Build\lib'    , keep_path=False)
+        self.copy('*.h'     , dst='include', src= projectPath + '\\Project' , keep_path=False)
+        self.copy('*.hxx'   , dst='include', src= projectPath + '\\Project' , keep_path=False)
+        self.copy('*.lib'   , dst='lib'    , src= projectPath + '\Build\lib', keep_path=False)
+        self.copy('*.dll'   , dst='bin'    , src= projectPath + '\Build\bin', keep_path=False)
+        self.copy('*.dylib*', dst='lib'    , src= projectPath + '\Build\lib', keep_path=False)
+        self.copy('*.so'    , dst='lib'    , src= projectPath + '\Build\lib', keep_path=False)
+        self.copy('*.a'     , dst='lib'    , src= projectPath + '\Build\lib', keep_path=False)
 
     def package_info(self):
         self.cpp_info.libs = [self.name]
