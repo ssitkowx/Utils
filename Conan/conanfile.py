@@ -3,7 +3,7 @@ import os, re
 
 class Conan(ConanFile):
     name            = "Utils"
-    #version         = "1.0"
+    version         = "1.0"
     license         = "freeware"
     repoUrl         = "https://github.com/ssitkowx"
     url             = repoUrl + '/' + name + '.git'
