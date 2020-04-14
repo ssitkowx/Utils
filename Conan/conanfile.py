@@ -16,52 +16,21 @@ class Conan(ConanFile):
     author          = "sylsit"
     requires        = "gtest/1.8.1@bincrafters/stable"
     build_requires  = []
-    
-    def createDownload(self):
-        if not os.path.isdir(self.downloadsPath):
-            os.mkdir(self.downloadsPath)
-        os.chdir(self.downloadsPath)
-        
-    def cloneRepo(self, name):
-        if not os.path.isdir(name):
-            self.run('git clone ' + self.repoUrl + '/' + name + '.git')
-        os.chdir(self.downloadsPath + '/' + name + '/Conan')
-    
-    def createPackage(self, user, channel):
-        self.run('conan create . ' + user + '/' + channel)
-    
-    def source(self):
-        for packages in self.build_requires:
-            package = (re.split('[/@]', packages, 3))
-            name    = package[0]
-            #version = package[1]
-            user    = package[2]
-            channel = package[3]
-
-            self.createDownload () 
-            self.cloneRepo      (name)
-            self.createPackage  (user,channel)
 
     def build(self):
-        projectPath = os.getcwd().replace('\Conan','')
-        if not os.path.exists(projectPath + '\\CMakeLists.txt'):
-            projectPath = os.getcwd() + '\\Project'
-
-        self.buildPath = projectPath + '\\Build'
+        projectPath = self.downloadsPath + '\\' + self.name
         
         if self.settings.os == 'Windows' and self.settings.compiler == 'Visual Studio':
             cmake = CMake(self)
-            cmake.configure(source_dir=projectPath, build_dir=self.buildPath)
+            cmake.configure(source_dir=projectPath)
             cmake.build()
         else:
             raise Exception('Unsupported platform or compiler')
             
         tools.replace_in_file(projectPath + "\\CMakeLists.txt", "Template", self.name, False)
         
-    def package(self):       
-        projectPath = os.getcwd().replace('\Conan','')
-        if not os.path.exists(projectPath + '\\CMakeLists.txt'):
-            projectPath = self.buildPath.replace('Build','')
+    def package(self):   
+        projectPath = self.downloadsPath + '\\' + self.name
     
         self.copy('*.h'     , dst='include', src= projectPath + '\\Project' , keep_path=False)
         self.copy('*.hxx'   , dst='include', src= projectPath + '\\Project' , keep_path=False)
