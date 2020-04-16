@@ -36,7 +36,7 @@ class Conan(ConanFile):
         tools.replace_in_file(projectPath + "\\CMakeLists.txt", "Template", self.name, False)
         
     def package(self):   
-        projectPath = self.downloadsPath + '\\' + self.name
+        projectPath = os.getcwd().replace('\Conan','')
     
         self.copy('*.h'     , dst='include', src= projectPath + '\\Project' , keep_path=False)
         self.copy('*.hxx'   , dst='include', src= projectPath + '\\Project' , keep_path=False)
