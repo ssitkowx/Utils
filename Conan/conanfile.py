@@ -37,6 +37,9 @@ class Conan(ConanFile):
         
     def package(self):   
         projectPath = os.getcwd().replace('\Conan','')
+        
+        if self.buildPackage == True:
+            projectPath  = self.downloadsPath + '\\' + self.name
     
         self.copy('*.h'     , dst='include', src= projectPath + '\\Project' , keep_path=False)
         self.copy('*.hxx'   , dst='include', src= projectPath + '\\Project' , keep_path=False)
