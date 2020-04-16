@@ -8,6 +8,7 @@ class Conan(ConanFile):
     repoUrl         = "https://github.com/ssitkowx"
     url             = repoUrl + '/' + name + '.git'
     downloadsPath   = "C:/Users/sitko/.conan/download"
+    buildPackage    = False
     description     = ""
     settings        = "os", "compiler", "build_type", "arch"
     options         = {"shared": [True, False]}
@@ -18,11 +19,16 @@ class Conan(ConanFile):
     build_requires  = []
 
     def build(self):
-        projectPath = self.downloadsPath + '\\' + self.name
+        projectPath = os.getcwd().replace('\Conan','')
+        projectBuild = projectPath + '\\Build'
         
+        if self.buildPackage == True:
+            projectPath  = self.downloadsPath + '\\' + self.name
+            projectBuild = projectPath + '\\Build'
+
         if self.settings.os == 'Windows' and self.settings.compiler == 'Visual Studio':
             cmake = CMake(self)
-            cmake.configure(source_dir=projectPath)
+            cmake.configure(source_dir=projectPath, build_dir=projectBuild)
             cmake.build()
         else:
             raise Exception('Unsupported platform or compiler')

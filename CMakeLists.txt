@@ -1,6 +1,5 @@
 PROJECT(Utils)
 CMAKE_MINIMUM_REQUIRED(VERSION 3.16)
-
 SET                   (ProjectName Project)
 SET                   (TestsName   Tests)
 SET                   (LibraryName ${CMAKE_PROJECT_NAME}Lib)
@@ -8,7 +7,8 @@ SET                   (ConanLibraryPath "C:/Users/sitko/.conan/data")
 SET                   (CurrentPath ${CMAKE_CURRENT_SOURCE_DIR})
 GET_FILENAME_COMPONENT(ParentPath  ${CurrentPath} PATH)
 
-INCLUDE(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+INCLUDE(${CurrentPath}/Conan/conanbuildinfo.cmake)
+
 CONAN_BASIC_SETUP()
 
 SET (ProjectIncludePath                  ${CurrentPath}/${ProjectName})
