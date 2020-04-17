@@ -8,7 +8,7 @@ class Conan(ConanFile):
     repoUrl         = "https://github.com/ssitkowx"
     url             = repoUrl + '/' + name + '.git'
     downloadsPath   = "C:/Users/sitko/.conan/download"
-    buildPackage    = True
+    buildPackage    = False
     description     = ""
     settings        = "os", "compiler", "build_type", "arch"
     options         = {"shared": [True, False]}
@@ -19,11 +19,14 @@ class Conan(ConanFile):
     build_requires  = []
 
     def build(self):
-        projectPath = os.getcwd().replace('\Conan','')
-        projectBuild = projectPath + '\\Build'
+        projectPath  = os.getcwd()
+        projectBuild = ""
         
         if self.buildPackage == True:
-            projectPath  = self.downloadsPath + '\\' + self.name
+            projectPath  = projectPath + '\\' + self.name
+            projectBuild = projectPath + '\\Build'
+        else:
+            projectPath  = projectPath.replace('\Conan','')
             projectBuild = projectPath + '\\Build'
 
         print ("!!!2")
@@ -38,10 +41,15 @@ class Conan(ConanFile):
         tools.replace_in_file(projectPath + "\\CMakeLists.txt", "Template", self.name, False)
         
     def package(self):   
-        projectPath = os.getcwd().replace('\Conan','')
+        projectPath  = os.getcwd()
+        projectBuild = ""
         
         if self.buildPackage == True:
-            projectPath  = self.downloadsPath + '\\' + self.name
+            projectPath  = projectPath + '\\' + self.name
+            projectBuild = projectPath + '\\Build'
+        else:
+            projectPath  = projectPath.replace('\Conan','')
+            projectBuild = projectPath + '\\Build'
             
         print ("!!!3")
         print (projectPath)    
