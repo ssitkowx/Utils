@@ -23,7 +23,7 @@ class Conan(ConanFile):
         projectBuild = ""
         
         if self.buildPackage == True:
-            projectPath  = downloadsPath + '\\' + self.name
+            projectPath  = self.downloadsPath + '\\' + self.name
             projectBuild = projectPath + '\\Build'
         else:
             projectPath  = projectPath.replace('\Conan','')
@@ -45,7 +45,7 @@ class Conan(ConanFile):
         projectBuild = ""
         
         if self.buildPackage == True:
-            projectPath  = downloadsPath + '\\' + self.name
+            projectPath  = self.downloadsPath + '\\' + self.name
             projectBuild = projectPath + '\\Build'
         else:
             projectPath  = projectPath.replace('\Conan','')
