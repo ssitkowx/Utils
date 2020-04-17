@@ -26,6 +26,8 @@ class Conan(ConanFile):
             projectPath  = self.downloadsPath + '\\' + self.name
             projectBuild = projectPath + '\\Build'
 
+        print ("!!!2")
+        print (projectPath)
         if self.settings.os == 'Windows' and self.settings.compiler == 'Visual Studio':
             cmake = CMake(self)
             cmake.configure(source_dir=projectPath, build_dir=projectBuild)
@@ -40,6 +42,9 @@ class Conan(ConanFile):
         
         if self.buildPackage == True:
             projectPath  = self.downloadsPath + '\\' + self.name
+            
+        print ("!!!3")
+        print (projectPath)    
     
         self.copy('*.h'     , dst='include', src= projectPath + '\\Project' , keep_path=False)
         self.copy('*.hxx'   , dst='include', src= projectPath + '\\Project' , keep_path=False)
