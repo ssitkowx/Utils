@@ -15,7 +15,7 @@ class Conan(ConanFile):
     generators      = "cmake"
     author          = "sylsit"
     export_source = "CMakeLists.txt"
-    source         =  "*"
+    source         =  "Project/*"
     requires        = "gtest/1.8.1@bincrafters/stable"
     #python_requires = []
 
