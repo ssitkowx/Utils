@@ -15,7 +15,6 @@ class Conan(ConanFile):
     generators      = "cmake"
     author          = "sylsit"
     exports_sources = '../*'
-    #source         =  "Project/*"
     requires        = "gtest/1.8.1@bincrafters/stable"
     #python_requires = []
 
@@ -27,10 +26,6 @@ class Conan(ConanFile):
             projectPath  = self.downloadsPath + '\\' + self.name
             projectBuild = os.getcwd() + '\\Build'
 
-        print ("!!!!!!!!!!!")
-        print (self.exports_sources)
-        print (projectPath)
-        print (projectBuild)
         if self.settings.os == 'Windows' and self.settings.compiler == 'Visual Studio':
             cmake = CMake(self)
             cmake.configure(source_dir=projectPath, build_dir=projectBuild)

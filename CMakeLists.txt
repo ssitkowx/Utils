@@ -7,9 +7,15 @@ SET                   (ConanLibraryPath "C:/Users/sitko/.conan/data")
 SET                   (CurrentPath ${CMAKE_CURRENT_SOURCE_DIR})
 GET_FILENAME_COMPONENT(ParentPath  ${CurrentPath} PATH)
 
-message ('CMake!!!!!!!!!')
-message (${CMAKE_CURRENT_LIST_DIR})
-INCLUDE(${CurrentPath}/conanbuildinfo.cmake)
+MESSAGE ("!!!!!!!!!!!!!!!")
+MESSAGE (${CurrentPath}/CMakeLists.txt)
+IF(EXISTS ${CurrentPath}/CMakeLists.txt)
+	INCLUDE(${CurrentPath}/Conan/conanbuildinfo.cmake)
+	Message ("AAAAAAAAAAAAAAA")
+ELSE()
+	INCLUDE(${CurrentPath}/conanbuildinfo.cmake)
+	Message ("BBBBBBBBBBBBBBB")
+ENDIF()
 
 CONAN_BASIC_SETUP()
 
