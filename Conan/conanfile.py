@@ -16,7 +16,6 @@ class Conan(ConanFile):
     author          = "sylsit"
     exports_sources = '../*'
     requires        = "gtest/1.8.1@bincrafters/stable"
-    #python_requires = []
 
     def build(self):
         projectPath  = os.getcwd().replace('\Conan','')
