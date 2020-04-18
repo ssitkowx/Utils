@@ -33,3 +33,17 @@ class Conan(ConanFile):
             raise Exception('Unsupported platform or compiler')
             
         tools.replace_in_file(projectPath + "\\CMakeLists.txt", "Template", self.name, False)
+        
+    def package(self):   
+        projectPath = os.getcwd().replace('\Conan','')
+        
+        if not os.path.exists(projectPath + '\\CMakeLists.txt'):
+            projectPath = self.downloadsPath + '\\' + self.name
+    
+        self.copy('*.h'     , dst='include', src= projectPath + '\\Project' , keep_path=False)
+        self.copy('*.hxx'   , dst='include', src= projectPath + '\\Project' , keep_path=False)
+        self.copy('*.lib'   , dst='lib'    , src= projectPath + '\Build\lib', keep_path=False)
+        self.copy('*.dll'   , dst='bin'    , src= projectPath + '\Build\bin', keep_path=False)
+        self.copy('*.dylib*', dst='lib'    , src= projectPath + '\Build\lib', keep_path=False)
+        self.copy('*.so'    , dst='lib'    , src= projectPath + '\Build\lib', keep_path=False)
+        self.copy('*.a'     , dst='lib'    , src= projectPath + '\Build\lib', keep_path=False)
