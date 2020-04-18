@@ -14,8 +14,10 @@ class Conan(ConanFile):
     default_options = "shared=False"
     generators      = "cmake"
     author          = "sylsit"
+    exports_sources = "CMakeLists.txt"
+    sources         =  "*"
     requires        = "gtest/1.8.1@bincrafters/stable"
-    build_requires  = []
+    #python_requires = []
 
     def build(self):
         projectPath  = os.getcwd().replace('\Conan','')
