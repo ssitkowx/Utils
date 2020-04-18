@@ -22,7 +22,7 @@ class Conan(ConanFile):
         projectBuild = projectPath + '\\Build'
         
         if not os.path.exists(projectPath + '\\CMakeLists.txt'):
-            projectPath  = self.downloadsPath + '\\' + self.name
+            #projectPath  = self.downloadsPath + '\\' + self.name
             projectBuild = projectPath + '\\Build'
 
         if self.settings.os == 'Windows' and self.settings.compiler == 'Visual Studio':
@@ -37,8 +37,8 @@ class Conan(ConanFile):
     def package(self):   
         projectPath = os.getcwd().replace('\Conan','')
         
-        if not os.path.exists(projectPath + '\\CMakeLists.txt'):
-            projectPath = self.downloadsPath + '\\' + self.name
+        #if not os.path.exists(projectPath + '\\CMakeLists.txt'):
+            #projectPath = self.downloadsPath + '\\' + self.name
     
         self.copy('*.h'     , dst='include', src= projectPath + '\\Project' , keep_path=False)
         self.copy('*.hxx'   , dst='include', src= projectPath + '\\Project' , keep_path=False)
