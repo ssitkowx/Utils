@@ -23,6 +23,7 @@ class Conan(ConanFile):
         
         if not os.path.exists(projectPath + '\\CMakeLists.txt'):
             projectPath  = self.downloadsPath + '\\' + self.name
+            projectBuild = projectPath + '\\Build'
 
         if self.settings.os == 'Windows' and self.settings.compiler == 'Visual Studio':
             cmake = CMake(self)
