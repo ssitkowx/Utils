@@ -14,8 +14,8 @@ class Conan(ConanFile):
     default_options = "shared=False"
     generators      = "cmake"
     author          = "sylsit"
-    exports_sources = "CMakeLists.txt"
-    sources         =  "*"
+    export_source = "CMakeLists.txt"
+    source         =  "*"
     requires        = "gtest/1.8.1@bincrafters/stable"
     #python_requires = []
 
