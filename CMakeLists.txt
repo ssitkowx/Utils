@@ -7,7 +7,7 @@ SET                   (ConanLibraryPath "C:/Users/sitko/.conan/data")
 SET                   (CurrentPath ${CMAKE_CURRENT_SOURCE_DIR})
 GET_FILENAME_COMPONENT(ParentPath  ${CurrentPath} PATH)
 
-INCLUDE(${CurrentPath}/Conan/conanbuildinfo.cmake)
+INCLUDE(${CurrentPath}/conanbuildinfo.cmake)
 
 CONAN_BASIC_SETUP()
 
