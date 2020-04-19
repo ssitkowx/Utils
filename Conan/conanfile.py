@@ -17,6 +17,7 @@ class Conan(ConanFile):
     exports_sources = '../*'
     requires        = "gtest/1.8.1@bincrafters/stable"
     #build_requires  = ["Logger/1.0@ssitkowx/stable"]
+    build_equires   = []
 
     def createDownload(self):
         if not os.path.isdir(self.downloadsPath):
