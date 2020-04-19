@@ -4,9 +4,6 @@
 //////////////////////////////// INCLUDES /////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
-#include <string>
-#include <memory>
-#include <stdio.h>
 #include <stdint.h>
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -35,6 +32,8 @@
 #define EIGHTEEN                    18
 #define NINETEEN                    19
 #define TWENTY                      20
+#define TWENTY_ONE                  21
+#define TWENTY_TWO                  22
 #define TWENTY_THREE                23
 #define TWENTY_FOUR                 24
 #define TWENTY_NINE                 29
@@ -132,22 +131,8 @@
 //////////////////////////////// FUNCTIONS ////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
-template <class... TArgs>
-std::string Format (const std::string & v_format, const TArgs &... v_args)
-{
-    // Based on https://stackoverflow.com/a/26221725
-    // Find buffer size needed, extra space for trailing '\0'
-
-    size_t size = snprintf (nullptr, FIRST_BYTE, v_format.c_str (), v_args...) + ONE_BYTE;
-    std::unique_ptr <char []> buf (new char [size]);
-    size_t written = snprintf (buf.get (), size, v_format.c_str (), v_args...);
-    if (written <= ZERO) { return {}; }
-                    
-    return std::string (buf.get (), buf.get () + size - ONE_BYTE);     // remove '\0'
-}
-
-uint8_t CharToint (const char v_char);
-uint8_t HexToInt  (const char v_char [TWO]);
+uint8_t AsciToint      (const char v_asci);
+uint8_t HexInAsciToInt (const char v_asciTwoBytesTabInHex [TWO]);
 
 ///////////////////////////////////////////////////////////////////////////////
 /////////////////////////////// END OF FILE ///////////////////////////////////

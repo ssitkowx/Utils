@@ -16,6 +16,32 @@ class Conan(ConanFile):
     author          = "sylsit"
     exports_sources = '../*'
     requires        = "gtest/1.8.1@bincrafters/stable"
+    build_requires  = ["Logger/1.0@ssitkowx/stable"]
+
+    def createDownload(self):
+        if not os.path.isdir(self.downloadsPath):
+            os.mkdir(self.downloadsPath)
+        os.chdir(self.downloadsPath)
+        
+    def cloneRepo(self, name):
+        if not os.path.isdir(name):
+            self.run('git clone ' + self.repoUrl + '/' + name + '.git')
+        os.chdir(self.downloadsPath + '/' + name + '/Conan')
+    
+    def createPackage(self, user, channel):
+        self.run('conan create . ' + user + '/' + channel)
+    
+    def source(self):
+        for packages in self.build_requires:
+            package = (re.split('[/@]', packages, 3))
+            name    = package[0]
+            #version = package[1]
+            user    = package[2]
+            channel = package[3]
+
+            self.createDownload () 
+            self.cloneRepo      (name)
+            self.createPackage  (user,channel)
 
     def build(self):
         projectPath  = os.getcwd().replace('\Conan','')
