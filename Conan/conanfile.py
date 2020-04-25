@@ -16,7 +16,7 @@ class Conan(ConanFile):
     author          = "sylsit"
     exports_sources = '../*'
     requires        = "gtest/1.8.1@bincrafters/stable"
-    #build_requires  = ["Logger/1.0@ssitkowx/stable"]
+    buildPackages   = ["Logger/1.0@ssitkowx/stable"]
 
     def createDownload(self):
         if not os.path.isdir(self.downloadsPath):
@@ -35,7 +35,7 @@ class Conan(ConanFile):
         for packages in self.build_requires:
             package = (re.split('[/@]', packages, 3))
             name    = package[0]
-            #version = package[1]
+            version = package[1]
             user    = package[2]
             channel = package[3]
 
@@ -73,3 +73,6 @@ class Conan(ConanFile):
         self.copy('*.dylib*', dst='lib'    , src= projectPath + '\Build\lib', keep_path=False)
         self.copy('*.so'    , dst='lib'    , src= projectPath + '\Build\lib', keep_path=False)
         self.copy('*.a'     , dst='lib'    , src= projectPath + '\Build\lib', keep_path=False)
+
+    def package_info(self):
+        self.cpp_info.libs = [self.name]
