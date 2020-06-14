@@ -21,7 +21,7 @@ class Conan(ConanFile):
     requires        = ["gtest/1.8.1@bincrafters/stable"]
     DownloadsPath   = "C:/Users/sitko/.conan/download"
     PackagesPath    = "C:/Users/sitko/.conan/data"
-    Packages        = ["Logger/1.0@ssitkowx/stable", "Utils/1.0@ssitkowx/stable"]
+    Packages        = []
 
     def source (self):   
         ConanPackages.Install (self, self.DownloadsPath, self.repoUrl, self.Packages)
