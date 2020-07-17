@@ -4,13 +4,16 @@
 //////////////////////////////// INCLUDES /////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
+#include <string>
+#include <memory>
+#include <stdio.h>
 #include <stdint.h>
 
 ///////////////////////////////////////////////////////////////////////////////
 /////////////////////////// MACROS/DEFINITIONS ////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
-// numbers
+// Byte number
 #define ZERO                        0
 #define ONE                         1
 #define TWO                         2
@@ -269,11 +272,14 @@
 #define TWO_HUNDRED_FIFTY_FIVE      255
 #define TWO_HUNDRED_FIFTY_SIX       256
 #define THREE_HUNDRED               300
+#define THREE_HUNDRED_NINETEEN      319
+#define THREE_HUNDRED_TWENTY        320
+#define TWO_THOUSAND                2000
 #define THREE_THOUSAND              3000
 #define THREE_THOUSAND_SIX_HUNDRED  3600
 #define THREE_THOUSAND_NEUN_HUNDRED 3900
+#define FIVE_THOUSAND               5000
 
-// bytes
 #define FIRST_BYTE                  ZERO
 #define SECOND_BYTE                 ONE
 #define THIRD_BYTE                  TWO
@@ -299,19 +305,22 @@
 #define THIRTY_BYTES                THIRTY
 #define THIRTY_SECOND_BYTE          THIRTY_ONE
 
+#define ZERO_BYTES                  ZERO
 #define ONE_BYTE                    ONE
 #define TWO_BYTES                   TWO
 #define THREE_BYTES                 THREE
 #define FOUR_BYTES                  FOUR
 #define FIVE_BYTES                  FIVE
-#define EIGHT_BYTES                 EIGHT
 #define SIX_BYTES                   SIX
+#define SEVEN_BYTES                 SEVEN
+#define EIGHT_BYTES                 EIGHT
+#define FIFTEEN_BYTES               FIFTEEN
+#define EIGHTEEN_BYTES              EIGHTEEN
 #define TWENTY_BYTES                TWENTY
 #define THIRTY_TWO_BYTES            THIRTY_TWO
 #define FIFTY_BYTES                 FIFTY
 #define SIXTY_FOUR_BYTES            SIXTY_FOUR
 
-// bits
 #define ONE_BIT                     ONE
 #define TWO_BITS                    TWO
 #define THREE_BITS                  THREE
@@ -347,16 +356,31 @@
 #define MASK_BIT_POS_6              SEVENTH_BIT
 #define MASK_BIT_POS_7              EIGHTH_BIT
 
-// byte masks
+#define REQ_BUF_LEN                 ONE_BYTE
+
 #define MASK_LOW_BYTE               0x00FF
 #define MASK_HIGH_BYTE              0xFF00
 
 ///////////////////////////////////////////////////////////////////////////////
-//////////////////////////////// FUNCTIONS ////////////////////////////////////
+/////////////////////////// CLASSES/STRUCTURES ////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
 uint8_t AsciToint      (const char v_asci);
 uint8_t HexInAsciToInt (const char v_hexInAsci [TWO]);
+
+template <class... TArgs>
+std::string Format (const std::string & v_format, const TArgs &... v_args)
+{
+    // Based on https://stackoverflow.com/a/26221725
+    // Find buffer size needed, extra space for trailing '\0'
+
+    size_t size = snprintf (nullptr, FIRST_BYTE, v_format.c_str (), v_args...) + ONE_BYTE;
+    std::unique_ptr <char []> buf (new char [size]);
+    size_t written = snprintf (buf.get (), size, v_format.c_str (), v_args...);
+    if (written <= ZERO) { return {}; }
+
+    return std::string (buf.get (), buf.get () + size - ONE_BYTE);     // remove '\0'
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 /////////////////////////////// END OF FILE ///////////////////////////////////
