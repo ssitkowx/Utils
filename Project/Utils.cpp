@@ -21,10 +21,10 @@ uint8_t AsciToint (const char v_asci)
 uint8_t HexInAsciToInt (const char v_hexInAsci [TWO])
 {
     char lowByte  = AsciToint (v_hexInAsci [SECOND_BYTE]);
-    if ((lowByte < ZERO) || (lowByte > FIFTEEN)) return ZERO;
+    if (lowByte > FIFTEEN) { return ZERO; }
 
     char highByte = AsciToint (v_hexInAsci [FIRST_BYTE]);
-    if ((highByte < ZERO) || (highByte > FIFTEEN)) return ZERO;
+    if (highByte > FIFTEEN) { return ZERO; }
 
     return ((highByte << FOUR_BITS) + lowByte);
 }

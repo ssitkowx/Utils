@@ -274,6 +274,7 @@
 #define THREE_HUNDRED               300
 #define THREE_HUNDRED_NINETEEN      319
 #define THREE_HUNDRED_TWENTY        320
+#define ONE_THOUSAND                1000
 #define TWO_THOUSAND                2000
 #define THREE_THOUSAND              3000
 #define THREE_THOUSAND_SIX_HUNDRED  3600
