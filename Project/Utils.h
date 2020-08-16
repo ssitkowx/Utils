@@ -274,12 +274,15 @@
 #define THREE_HUNDRED               300
 #define THREE_HUNDRED_NINETEEN      319
 #define THREE_HUNDRED_TWENTY        320
+#define EIGHT_HUNDRED               800
 #define ONE_THOUSAND                1000
 #define TWO_THOUSAND                2000
 #define THREE_THOUSAND              3000
 #define THREE_THOUSAND_SIX_HUNDRED  3600
 #define THREE_THOUSAND_NEUN_HUNDRED 3900
 #define FIVE_THOUSAND               5000
+#define EIGHT_THOUSAND              8000
+#define THIRTY_THOUSAND             30000
 
 #define FIRST_BYTE                  ZERO
 #define SECOND_BYTE                 ONE
@@ -321,6 +324,9 @@
 #define THIRTY_TWO_BYTES            THIRTY_TWO
 #define FIFTY_BYTES                 FIFTY
 #define SIXTY_FOUR_BYTES            SIXTY_FOUR
+#define FIVE_THOUSAND_BYTES         FIVE_THOUSAND
+#define EIGHT_THOUSAND_BYTES        EIGHT_THOUSAND
+#define THIRTY_THOUSAND_BYTES       THIRTY_THOUSAND
 
 #define ONE_BIT                     ONE
 #define TWO_BITS                    TWO
