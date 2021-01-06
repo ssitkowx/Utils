@@ -319,12 +319,15 @@
 #define SIX_BYTES                   SIX
 #define SEVEN_BYTES                 SEVEN
 #define EIGHT_BYTES                 EIGHT
+#define TEN_BYTES                   TEN
 #define FIFTEEN_BYTES               FIFTEEN
 #define EIGHTEEN_BYTES              EIGHTEEN
 #define TWENTY_BYTES                TWENTY
 #define THIRTY_TWO_BYTES            THIRTY_TWO
 #define FIFTY_BYTES                 FIFTY
+#define FORTY_BYTES                 FORTY
 #define SIXTY_FOUR_BYTES            SIXTY_FOUR
+#define ONE_HUNDRED_BYTES           ONE_HUNDRED
 #define EIGHT_HUNDRED_BYTES         EIGHT_HUNDRED
 #define FIVE_THOUSAND_BYTES         FIVE_THOUSAND
 #define EIGHT_THOUSAND_BYTES        EIGHT_THOUSAND
