@@ -20,9 +20,9 @@ class UtilsFixture : public::testing::Test
         UtilsFixture () = default;
         ~UtilsFixture () = default;
 
-        struct
+        struct AsciToInt
         {
-            struct
+            struct ConversionResult
             {
                 static constexpr std::pair <char, uint8_t> Positive [TWENTY_TWO] = { std::make_pair ('0', ZERO),
                                                                                      std::make_pair ('1', ONE),

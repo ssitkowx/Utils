@@ -1,0 +1,5 @@
+# ninja log v5
+0	334	1631171886234780642	CMakeFiles/UtilsLib.dir/Project/Utils.cpp.o	fdedf00b60490df7
+335	346	1631171886250780460	lib/libUtilsLib.a	426d21d8af91445c
+0	1937	1631172114305212932	CMakeFiles/Tests.dir/Tests/UtilsFixture.cxx.o	d5f071a963899b9e
+1938	2012	1631172114377212716	bin/Tests	f237f9a3daf7a3e4

@@ -50,7 +50,7 @@ class ConanPackages:
             paths [packageComponent ['name'] + 'PackageName']        = packageName
             packageNames.append (packageComponent ['name'])
 
-        tools.replace_in_file (os.getcwd ().replace ('\Conan','') + "\\CMakeLists.txt", "PackagesTempNames", str (packageNames).strip ('[]').replace (',','').replace ('\'', ''), False)    
+        tools.replace_in_file (os.getcwd ().replace ('/Conan','') + "/CMakeLists.txt", "PackagesTempNames", str (packageNames).strip ('[]').replace (',','').replace ('/', ''), False)    
         return paths
 
     def Install (self, v_downloadsPath, v_repoUrl, v_packages):
