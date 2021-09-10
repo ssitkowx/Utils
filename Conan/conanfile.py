@@ -1,5 +1,5 @@
 from conans import ConanFile, CMake, tools
-from ConanPackages import ConanPackages  
+from conanPackages import conanPackages
 import os, re
 
 class Conan(ConanFile):
@@ -19,12 +19,12 @@ class Conan(ConanFile):
     exports         = "*"
     exports_sources = '../*'
     requires        = ["gtest/1.8.1@bincrafters/stable"]
-    PackagesPath    = "/home/sylwester/.conan/data"
-    DownloadsPath   = "/home/sylwester/.conan/download"
-    Packages        = []
+    packagesPath    = "/home/sylwester/.conan/data"
+    downloadsPath   = "/home/sylwester/.conan/download"
+    packages        = []
 
     def source (self):   
-        ConanPackages.Install (self, self.DownloadsPath, self.repoUrl, self.Packages)
+        conanPackages.Install (self, self.downloadsPath, self.repoUrl, self.packages)
 
     def build (self):
         projectPath  = os.getcwd ().replace ('/Conan','')
@@ -34,24 +34,24 @@ class Conan(ConanFile):
             projectPath = self.downloadsPath + '/' + self.name
             buildPath   = os.getcwd() + '/Build'
             
-        tools.replace_in_file (projectPath + "/CMakeLists.txt", "PackageTempName", self.name, False)
+        tools.replace_in_file (projectPath + "/CMakeLists.txt", "packageTempName", self.name, False)
 
         if self.settings.os == 'Linux' and self.settings.compiler == 'gcc':
-            packagesPaths = ConanPackages.GetPaths (self, self.PackagesPath, self.Packages)
+            packagesPaths = conanPackages.getPaths (self, self.packagesPath, self.packages)
             cmake         = CMake(self)
             
-            conanPath = os.getcwd () + "/PackagesProperties.txt"
-            PackagesPropertiesFileHandler = open (conanPath, "w")
+            conanPath = os.getcwd () + "/packagesProperties.txt"
+            packagesPropertiesFileHandler = open (conanPath, "w")
             for packagePathKey, packagePathValue in packagesPaths.items ():
-                PackagesPropertiesFileHandler.writelines (packagePathKey + "=" + packagePathValue + "\n")
-            PackagesPropertiesFileHandler.close ()
+                packagesPropertiesFileHandler.writelines (packagePathKey + "=" + packagePathValue + "\n")
+            packagesPropertiesFileHandler.close ()
 
             cmake.configure (source_dir = projectPath, build_dir = buildPath)
             cmake.build ()
         else:
             raise Exception ('Unsupported platform or compiler')
         
-    def package (self):   
+    def package (self):
         projectPath = os.getcwd ().replace ('/Conan','')
         
         if not os.path.exists (projectPath + '/CMakeLists.txt'):
