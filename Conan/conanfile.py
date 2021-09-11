@@ -24,7 +24,7 @@ class Conan(ConanFile):
     packages        = []
 
     def source (self):   
-        conanPackages.Install (self, self.downloadsPath, self.repoUrl, self.packages)
+        conanPackages.install (self, self.downloadsPath, self.repoUrl, self.packages)
 
     def build (self):
         projectPath  = os.getcwd ().replace ('/Conan','')

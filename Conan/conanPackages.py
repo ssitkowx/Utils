@@ -8,14 +8,14 @@ class conanPackages:
             os.mkdir (v_downloadsPath)
         os.chdir (v_downloadsPath)
 
-    def __cloneRepo (self, v_name, v_downloadsPath, v_repoUrl):
+    def __cloneRepo (self, v_name, v_version, v_downloadsPath, v_repoUrl):
         print ('cloneRepo')
         url = v_repoUrl + '/' + v_name + '.git'
         print ('url', url)
 
         packageDownloadsPath = v_downloadsPath + '/' + v_name
         if not os.path.isdir (packageDownloadsPath):
-            self.run ('git clone ' + url)
+            self.run ('git clone --branch ' + v_version + ' ' + url)
         os.chdir (packageDownloadsPath + '/Conan')
 
     def __createPackage (self, v_user, v_channel):
@@ -37,7 +37,7 @@ class conanPackages:
             hashFolder         = os.listdir (path)
             packageIncludePath = path + '/' + hashFolder [0] + '/include'
             packageLibPath     = path + '/' + hashFolder [0] + '/lib'
-            packageName        = 'lib' + packageComponent ['name'] + '.lib'
+            packageName        = 'lib' + packageComponent ['name'] + '.a'
              
             if not os.path.isdir (packageIncludePath):
                 raise Exception ('%s. Is not package include path', packageIncludePath)
@@ -45,18 +45,18 @@ class conanPackages:
             if not os.path.isdir (packageLibPath):
                 raise Exception ('%s. Is not package include lib path', packageLibPath)
 
-            paths [packageComponent ['name'] + 'packageIncludePath'] = packageIncludePath
-            paths [packageComponent ['name'] + 'packageLibPath']     = packageLibPath
-            paths [packageComponent ['name'] + 'packageName']        = packageName
+            paths [packageComponent ['name'] + 'PackageIncludePath'] = packageIncludePath
+            paths [packageComponent ['name'] + 'PackageLibPath']     = packageLibPath
+            paths [packageComponent ['name'] + 'PackageName']        = packageName
             packageNames.append (packageComponent ['name'])
 
-        tools.replace_in_file (os.getcwd ().replace ('/Conan','') + "/CMakeLists.txt", "packagesTempNames", str (packageNames).strip ('[]').replace (',','').replace ('/', ''), False)    
+        tools.replace_in_file (os.getcwd ().replace ('/Conan','') + "/CMakeLists.txt", "PackagesTempNames", str (packageNames).strip ('[]').replace (',','').replace ('\'', ''), False)
         return paths
 
-    def Install (self, v_downloadsPath, v_repoUrl, v_packages):
-        print ('Install')
+    def install (self, v_downloadsPath, v_repoUrl, v_packages):
+        print ('install')
         for package in v_packages:
             packageComponent = conanPackages.__parse (self, package)
             conanPackages.__createFolderDownload     (self, v_downloadsPath)
-            conanPackages.__cloneRepo                (self, packageComponent ['name'], v_downloadsPath, v_repoUrl)
+            conanPackages.__cloneRepo                (self, packageComponent ['name'], packageComponent ['version'], v_downloadsPath, v_repoUrl)
             conanPackages.__createPackage            (self, packageComponent ['user'], packageComponent ['channel'])
