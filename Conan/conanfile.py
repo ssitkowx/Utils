@@ -4,7 +4,7 @@ import os, re
 
 class Conan(ConanFile):
     name            = "Utils"
-    version         = "1.0"
+    version         = "1.1"
     user            = "ssitkowx"
     channel         = "stable"
     license         = "freeware"
