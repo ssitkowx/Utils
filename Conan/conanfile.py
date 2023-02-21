@@ -1,6 +1,6 @@
 from conans import ConanFile, CMake, tools
-from conanPackages import conanPackages
-import os, re
+from conanPackages import conanPackages  
+import os
 
 class Conan(ConanFile):
     name            = "Utils"
@@ -34,7 +34,7 @@ class Conan(ConanFile):
             projectPath = self.downloadsPath + '/' + self.name
             buildPath   = os.getcwd() + '/Build'
             
-        tools.replace_in_file (projectPath + "/CMakeLists.txt", "PackagesTempNames", self.name, False)
+        tools.replace_in_file (projectPath + "/CMakeLists.txt", "PackageTempName", self.name, False)
 
         if self.settings.os == 'Linux' and self.settings.compiler == 'gcc':
             packagesPaths = conanPackages.getPaths (self, self.packagesPath, self.packages)
@@ -45,13 +45,13 @@ class Conan(ConanFile):
             for packagePathKey, packagePathValue in packagesPaths.items ():
                 packagesPropertiesFileHandler.writelines (packagePathKey + "=" + packagePathValue + "\n")
             packagesPropertiesFileHandler.close ()
-
+            
             cmake.configure (source_dir = projectPath, build_dir = buildPath)
             cmake.build ()
         else:
             raise Exception ('Unsupported platform or compiler')
         
-    def package (self):
+    def package (self):   
         projectPath = os.getcwd ().replace ('/Conan','')
         
         if not os.path.exists (projectPath + '/CMakeLists.txt'):
