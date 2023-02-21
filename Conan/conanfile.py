@@ -34,7 +34,7 @@ class Conan(ConanFile):
             projectPath = self.downloadsPath + '/' + self.name
             buildPath   = os.getcwd() + '/Build'
             
-        tools.replace_in_file (projectPath + "/CMakeLists.txt", "packageTempName", self.name, False)
+        tools.replace_in_file (projectPath + "/CMakeLists.txt", "PackagesTempNames", self.name, False)
 
         if self.settings.os == 'Linux' and self.settings.compiler == 'gcc':
             packagesPaths = conanPackages.getPaths (self, self.packagesPath, self.packages)
