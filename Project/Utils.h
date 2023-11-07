@@ -392,8 +392,10 @@
 /////////////////////////// CLASSES/STRUCTURES ////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
-uint8_t AsciToint      (const char v_asci);
-uint8_t HexInAsciToInt (const char v_hexInAsci [TWO]);
+uint8_t  AsciToint       (const char v_asci);
+uint64_t Pack8In64Bits   (const uint8_t * const vData);
+uint8_t  HexInAsciToInt  (const char vHexInAsci [TWO]);
+void     Unpack32In8Bits (const uint32_t vValue, uint8_t * const vData);
 
 template <class... TArgs>
 std::string Format (const std::string & v_format, const TArgs &... v_args)

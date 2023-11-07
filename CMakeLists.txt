@@ -102,3 +102,4 @@ ADD_LIBRARY                (${LibraryName} STATIC             ${ProjectFilesAndF
 TARGET_INCLUDE_DIRECTORIES (${LibraryName} PUBLIC             ${ProjectPathsLists} ${PackageIncludesPaths})
 TARGET_LINK_LIBRARIES      (${LibraryName}                    ${CONAN_LIBS_GTEST})
 TARGET_COMPILE_FEATURES    (${LibraryName} PUBLIC cxx_std_17)
+ADD_DEFINITIONS            (-D_GLIBCXX_USE_CXX11_ABI=0)
