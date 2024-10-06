@@ -15,7 +15,7 @@
 
 class UtilsFixture : public::testing::Test
 {
-    static constexpr char * MODULE = (char *)"UtilsMock";
+    static constexpr char * Module = (char *)"UtilsMock";
 
     public:
         UtilsFixture () = default;
