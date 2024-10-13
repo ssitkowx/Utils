@@ -49,6 +49,40 @@ void Unpack32In8Bits (const uint32_t vValue, uint8_t * const vData)
     *(vData + THREE) = ((vValue >> TWENTY_FOUR) & 0xFF);
 }
 
+std::string ConvertBinaryToString (const std::string_view vData)
+{
+    std::string data;
+    for (size_t pos = ZERO; vData [pos] != '\0'; pos++) 
+    {
+        std::ostringstream stream;
+        stream << "\\x" << std::hex << std::setw (2) << std::setfill ('0') << (0xFF & static_cast<unsigned char>(vData [pos]));
+        data += stream.str();
+    }
+
+    return data;
+}
+
+std::string ConvertStringToBinary (const std::string_view vData)
+{
+    const uint16_t    len = vData.size ();
+    int               number;
+    std::string       binaryData;
+    std::stringstream stream;
+
+    if (len % 4 != 0) { return ""; }
+
+    for (uint16_t pos = ZERO; pos < len; pos = pos + FOUR)
+    {
+        if (vData [pos] == '\\' && vData [pos + ONE] == 'x')
+        {
+            stream << std::hex << vData.substr (pos + TWO, TWO)<< std::endl;
+            stream >> number;
+            binaryData+= static_cast<char>(number);
+        }
+    }
+    return binaryData;
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 /////////////////////////////// END OF FILE ///////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////

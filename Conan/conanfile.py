@@ -24,7 +24,7 @@ class Conan(ConanFile):
     downloadPath    = "/home/sylwester/.conan2/download"
     repoPath        = downloadPath + '/repos'
     packagePath     = downloadPath + '/packages'
-    packages        = []
+    packages        = ["logger/1.2", "loggerhw/1.2"]
 
     def layout (self):
         projectPath = os.getcwd ().replace ('/Conan','')
@@ -32,7 +32,7 @@ class Conan(ConanFile):
 
     def source (self):
         cmake_file = load (self, "CMakeLists.txt")
-        conanPackages.install (self, self.repoPath, self.repoUrl, self.packages)
+        conanPackages.install (self, self.downloadPath, self.repoPath, self.repoUrl, self.packages)
 
     def build (self):
         if self.settings.os == 'Linux' and self.settings.compiler == 'gcc':
