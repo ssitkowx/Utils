@@ -49,38 +49,35 @@ void Unpack32In8Bits (const uint32_t vValue, uint8_t * const vData)
     *(vData + THREE) = ((vValue >> TWENTY_FOUR) & 0xFF);
 }
 
-std::string ConvertBinaryToString (const std::string_view vData)
+std::string ConvertBinaryToHexString (std::string_view vData)
 {
-    std::string data;
-    for (size_t pos = ZERO; vData [pos] != '\0'; pos++) 
+    std::ostringstream stream;
+    for (unsigned char number : vData)
     {
-        std::ostringstream stream;
-        stream << "\\x" << std::hex << std::setw (2) << std::setfill ('0') << (0xFF & static_cast<unsigned char>(vData [pos]));
-        data += stream.str();
+        stream << "\\x" << std::hex << std::setw (TWO) << std::setfill ('0') << (int)number;
     }
-
-    return data;
+    return stream.str ();
 }
 
-std::string ConvertStringToBinary (const std::string_view vData)
+std::string ConvertHexStringToBinary (std::string_view vData)
 {
-    const uint16_t    len = vData.size ();
-    int               number;
-    std::string       binaryData;
-    std::stringstream stream;
+    std::string        byte;
+    std::string        binary;
+    std::istringstream stream (vData.data ());
 
-    if (len % 4 != 0) { return ""; }
-
-    for (uint16_t pos = ZERO; pos < len; pos = pos + FOUR)
+    while (std::getline (stream, byte, '\\'))
     {
-        if (vData [pos] == '\\' && vData [pos + ONE] == 'x')
+        if (byte.size () >= THREE && byte [ZERO] == 'x')
         {
-            stream << std::hex << vData.substr (pos + TWO, TWO)<< std::endl;
-            stream >> number;
-            binaryData+= static_cast<char>(number);
+            std::string hexByte = byte.substr (1, 2);
+
+            unsigned int value;
+            std::istringstream (hexByte) >> std::hex >> value;
+
+            binary += static_cast<char>(value);
         }
     }
-    return binaryData;
+    return binary;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

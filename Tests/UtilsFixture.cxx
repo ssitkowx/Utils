@@ -72,11 +72,11 @@ TEST_F (UtilsFixture, CheckHexInAsciToIntNegativeConversion)
 
 TEST_F (UtilsFixture, ConvertStringToBinaryAndReverse)
 {
-    std::cout << Module << " ConvertStringToBinary\n";
+    std::cout << Module << " ConvertHexStringToBinary\n";
 
     std::string_view string = "\\x12\\x10\\x08\\x5a\\x10\\xa6\\xff\\xff\\xff\\xff\\xff\\xff\\xff\\xff\\x01\\x18\\x8e\\x02";
-    const std::string binaryData = ConvertStringToBinary (string);
-    const std::string stringData = ConvertBinaryToString (binaryData);
+    const std::string binaryData = ConvertHexStringToBinary (string);
+    const std::string stringData = ConvertBinaryToHexString (binaryData);
 
     std::cout << Module << " binary string: " << stringData << std::endl;
     EXPECT_EQ (string, stringData);
