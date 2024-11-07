@@ -403,17 +403,14 @@ std::string ConvertBinaryToHexString (std::string_view vData);
 std::string ConvertHexStringToBinary (std::string_view vData);
 
 template <class... TArgs>
-std::string Format (const std::string & v_format, const TArgs &... v_args)
+std::string Format (const std::string & vData, const TArgs &... vArgs)
 {
-    // Based on https://stackoverflow.com/a/26221725
-    // Find buffer size needed, extra space for trailing '\0'
-
-    size_t size = snprintf (nullptr, FIRST_BYTE, v_format.c_str (), v_args...) + ONE_BYTE;
+    size_t size = snprintf (nullptr, FIRST_BYTE, vData.c_str (), vArgs...) + ONE_BYTE;
     std::unique_ptr <char []> buf (new char [size]);
-    size_t written = snprintf (buf.get (), size, v_format.c_str (), v_args...);
+    size_t written = snprintf (buf.get (), size, vData.c_str (), vArgs...);
     if (written <= ZERO) { return {}; }
 
-    return std::string (buf.get (), buf.get () + size - ONE_BYTE);     // remove '\0'
+    return std::string (buf.get (), buf.get () + size - ONE_BYTE);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
