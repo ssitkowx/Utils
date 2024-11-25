@@ -5,7 +5,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <array>
-#include "Utils.h"
+#include "Utils.hpp"
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
