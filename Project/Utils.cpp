@@ -61,24 +61,24 @@ std::string ConvertBinaryToHexString (std::string_view vData)
 
 std::string ConvertHexStringToBinary (std::string_view vData)
 {
-    std::string        byte;
-    std::string        binary;
-    std::istringstream stream (vData.data ());
+    std::string binary;
+    binary.reserve (vData.size() / FOUR);
 
-    while (std::getline (stream, byte, '\\'))
+    for (size_t i = ZERO; i + THREE < vData.size(); )
     {
-        if (byte.size () >= THREE && byte [ZERO] == 'x')
+        if (vData[i] == '\\' && vData[i+1] == 'x')
         {
-            std::string hexByte = byte.substr (1, 2);
-
-            unsigned int value;
-            std::istringstream (hexByte) >> std::hex >> value;
-
-            binary += static_cast<char>(value);
+            std::string hexByte = std::string (vData.substr (i + TWO, TWO));
+            char        byte    = static_cast<char>(std::stoi(hexByte, nullptr, SIXTEEN));
+            binary.push_back (byte);
+            i += FOUR;
         }
+        else { ++i; }
     }
+
     return binary;
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////
 /////////////////////////////// END OF FILE ///////////////////////////////////
