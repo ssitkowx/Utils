@@ -10,9 +10,9 @@
 //////////////////////////////// FUNCTIONS ////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
-int main (int v_argc, char ** v_argv)
+int main (int vArgc, char ** vArgv)
 {
-    ::testing::InitGoogleMock (&v_argc, v_argv);
+    ::testing::InitGoogleMock (&vArgc, vArgv);
     return RUN_ALL_TESTS ();
 }
 
